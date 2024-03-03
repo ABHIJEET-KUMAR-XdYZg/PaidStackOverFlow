@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Out</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body{
+      min-height: 100vh;
+      width: 100%;
+      background: #f0f0f0; /* Changed background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; /* Center content vertically */
+    }
+    #signoutbtn{
+      height: 50px;
+      padding: 0 15px;
+      font-size: 17px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+      color: #fff; 
+      background: #009579;
+      cursor: pointer;
+      transition: 0.4s;
+      margin-bottom: 20px; /* Added margin for spacing */
+    }
+    #signoutbtn:hover{
+      background: #006653;
+    }
+    #getDataBtn {
+      height: 50px;
+      padding: 0 15px;
+      font-size: 17px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      color: #fff; 
+      background: #007bff; /* Changed button color */
+      cursor: pointer;
+      transition: 0.4s;
+      margin-bottom: 20px; /* Added margin for spacing */
+    }
+    #getDataBtn:hover {
+      background: #0056b3; /* Darker color on hover */
+    }
+    #dataContainer {
+      width: 80%; /* Adjusted width for better readability */
+      max-width: 600px; /* Added max-width for responsiveness */
+      background: #fff; /* Added background color */
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+      margin-bottom: 20px; /* Added margin for spacing */
+    }
+    #addProblemIcon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      color: #fff;
+      font-size: 24px;
+      background: #007bff; /* Changed color to match button */
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%; /* Make it round */
+    }
+    .modal-content {
+      background: #fff; /* Added background color */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: #555;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body{
+      min-height: 100vh;
+      width: 100%;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative; /* Enable relative positioning */
+    }
+    #addProblemIcon { /* Repurposed as Sign Out Button */
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      color: #fff;
+      font-size: 24px;
+      background: #009579; /* Sign out button color */
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .modal-content form {
+      display: grid;
+      gap: 10px; /* Space between form elements */
+    }
+    .inputbox {
+      position: relative;
+      padding-top: 20px; /* Space for labels */
+    }
+    .inputbox input {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #009579;
+      outline: none;
+      color: #333;
+      font-size: 16px;
+    }
+    .inputbox span {
+      position: absolute;
+      left: 0;
+      padding-top: 10px;
+      pointer-events: none;
+      transition: .5s;
+      color: #009579;
+      font-size: 16px;
+    }
+    .inputbox input:focus ~ span,
+    .inputbox input:valid ~ span {
+      transform: translateY(-20px);
+      font-size: 12px;
+    }
+    #submit {
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background: #009579;
+      color: #fff;
+      cursor: pointer;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="button" id="signoutbtn" value="Sign Out">
+  <button id="getDataBtn">Get Data</button>
+  <div id="dataContainer"></div>
+  <div id="addProblemIcon">+</div>
+
+  <div id="problemFormModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form>
+        <div class="inputbox">
+          <input type="text" value="" id="code" required>
+          <span>Code</span>
+        </div>
+        <div class="inputbox">
+          <input type="email" value="" id="problem" required>
+          <span>Problem</span>
+        </div>
+        <div class="inputbox">
+          <input type="text" value="" id="goal" required>
+          <span>Goal</span>
+        </div>
+        <div class="inputbox">
+          <input type="text" value="" id="amount" required>
+          <span>Amount</span>
+        </div>
+        <input type="submit" value="Submit" id="submit">
+      </form>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script>
+    document.getElementById('addProblemIcon').addEventListener('click', function() {
+      document.getElementById('problemFormModal').style.display = 'block';
+    });
+
+    document.querySelector('.close').addEventListener('click', function() {
+      document.getElementById('problemFormModal').style.display = 'none';
+    });
+  </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyAimxnm-IjTs8sTVe5yy_8udwIiIvnsQ8o",
+      authDomain: "nitr-2f018.firebaseapp.com",
+      databaseURL: "https://nitr-2f018-default-rtdb.firebaseio.com",
+      projectId: "nitr-2f018",
+      storageBucket: "nitr-2f018.appspot.com",
+      messagingSenderId: "1008777056920",
+      appId: "1:1008777056920:web:75e5253af87f50963136ed",
+      measurementId: "G-5RY8HFS5V9"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById("submit").addEventListener('click', async function(e){
+      e.preventDefault();
+
+      const user = firebase.auth().currentUser;
+      if (user !== null) {
+        try {
+          const userRef = ref(db, 'user/' + user.uid);
+          const snapshot = await get(userRef);
+          const len = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
+          console.log("Current length (len):", len);
+          const newEntryRef = ref(db, 'user/' + user.uid + '/' + (len + 1));
+          await set(newEntryRef, {
+            code: document.getElementById("code").value,
+            problem: document.getElementById("problem").value,
+            goal: document.getElementById("goal").value,
+            amount: document.getElementById("amount").value
+          });
+          alert("Added successfully!");
+        } catch (error) {
+          console.error("Error adding data:", error);
+          alert("An error occurred while adding data.");
+        }
+      } else {
+        console.log("No user is currently logged in.");
+      }
+    });
+
+    document.getElementById('getDataBtn').addEventListener('click', function() {
+      getdata();
+    });
+
+    function getdata() {
+      if (firebase.auth().currentUser !== null) {
+        firebase.database().ref('user/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
+          const dataArray = snapshot.val();
+          const container = document.getElementById('dataContainer');
+          container.innerHTML = '';
+
+          if (dataArray && Array.isArray(dataArray)) {
+            dataArray.forEach(data => {
+              const div = document.createElement('div');
+              div.textContent = JSON.stringify(data);
+              container.appendChild(div);
+            });
+          } else {
+            container.textContent = 'No data available';
+          }
+        });
+      }
+    }
+  </script>
+  <script src="page1.js" type="module"></script>
+</body>
+</html>
